@@ -17,7 +17,7 @@ rag:
 # 目录配置
 dirs:
   data: "data"
-  chroma_db: "data/chroma_db"
+  chroma_db: "chroma_db"
   logs: "logs"
 
 # Agent配置

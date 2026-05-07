@@ -79,15 +79,12 @@ def chat_with_rag_stream(
         for i, r in enumerate(results)
     ])
 
-    prompt = f"""根据以下参考资料回答用户问题。
-
-参考资料：
-{context}
-
-用户问题：{user_input}
-
-请根据以上参考资料回答问题，如果参考资料中没有相关信息，请如实说明。"""
-
+    prompt = f"""
+                根据以下参考资料回答用户问题。
+                参考资料：{context}
+                用户问题：{user_input}
+                请根据参考资料回答问题，如果参考资料中没有相关信息，请如实说明。
+            """
     llm = get_chat_model()
 
     # 首先发送参考资料
