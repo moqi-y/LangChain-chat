@@ -33,11 +33,20 @@ from utils import logger
 def chat(message, history):
     """处理聊天输入"""
     response_text = ""
+    references_text = ""
+    
     for chunk in chat_with_rag_stream(message):
         if isinstance(chunk, tuple):
+            refs = chunk[1]
+            if refs:
+                for i, ref in enumerate(refs):
+                    references_text += f"**参考来源 {i+1}:** `{ref['source']}`\n\n{ref['content']}\n\n---\n\n"
             continue
         response_text += chunk.content
         yield response_text
+
+    if references_text:
+        yield response_text + "\n\n---\n\n" + references_text
 
 
 ui = gr.ChatInterface(
