@@ -1,4 +1,7 @@
 .venv/*
+/data/*
+.idea/*
+chroma_db/*
 .venv/Include/site/python3.10/greenlet/greenlet.h
 /.venv/Lib/site-packages/_distutils_hack/__init__.py
 /.venv/Lib/site-packages/_distutils_hack/override.py

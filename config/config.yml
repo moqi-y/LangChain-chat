@@ -1,0 +1,31 @@
+# 项目配置文件
+
+# 模型配置
+model:
+  base_url: "http://192.168.1.59:11434"
+  chat_model: "qwen3:0.6b"
+  embed_model: "nomic-embed-text"
+  temperature: 0.7
+
+# RAG配置
+rag:
+  chunk_size: 500
+  chunk_overlap: 50
+  top_k: 3
+  collection_name: "rag_store"
+
+# 目录配置
+dirs:
+  data: "data"
+  chroma_db: "data/chroma_db"
+  logs: "logs"
+
+# Agent配置
+agent:
+  system_prompt: "你是一个智能助手，你要根据提供给你的参考资料，回答用户的问题。参考内容可能包含多个来源，请综合这些信息进行回答。"
+
+# 日志配置
+log:
+  level: "INFO"
+  rotation: "500 MB"
+  retention: "10 days"
