@@ -8,3 +8,4 @@ chromadb
 loguru==0.7.3
 pypdf
 pyyaml
+gradio

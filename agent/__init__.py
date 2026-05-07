@@ -46,7 +46,7 @@ def chat_with_rag(
 请根据以上参考资料回答问题，如果参考资料中没有相关信息，请如实说明。"""
 
     llm = get_chat_model()
-    response = llm.stream(prompt)
+    response = llm.invoke(prompt)
 
     if include_reference:
         return {
@@ -69,9 +69,10 @@ def chat_with_rag_stream(
         k: int, 检索相关文档的数量，默认为配置中的top_k
 
     yields:
-        str: 模型生成的文本片段
+        tuple: (answer_chunk, references_list) 或 (answer_chunk, None)
     """
     results = search_similar(user_input, k=k or DEFAULT_K)
+    references = [{"source": r["source"], "content": r["content"]} for r in results]
 
     context = "\n\n".join([
         f"参考文档{i + 1}（{r['source']}）:\n{r['content']}"
@@ -89,8 +90,12 @@ def chat_with_rag_stream(
 
     llm = get_chat_model()
 
+    # 首先发送参考资料
+    yield "", references
+
+    # 然后流式发送回答
     for chunk in llm.stream(prompt):
-        yield chunk.content
+        yield chunk
 
 
 __all__ = [
