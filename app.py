@@ -26,6 +26,8 @@ Gradio Web应用 - 聊天界面
 """
 
 import gradio as gr
+from gradio import Textbox
+
 from agent import chat_with_rag_stream
 from utils import logger
 
@@ -34,18 +36,19 @@ def chat(message, history):
     """处理聊天输入"""
     response_text = ""
     references_text = ""
-    
+
     for chunk in chat_with_rag_stream(message):
         if isinstance(chunk, tuple):
             refs = chunk[1]
             if refs:
                 for i, ref in enumerate(refs):
-                    references_text += f"**参考来源 {i+1}:** `{ref['source']}`\n\n{ref['content']}\n\n---\n\n"
+                    references_text += f"**参考来源 {i + 1}:** `{ref['source']}`\n\n{ref['content']}\n\n---\n\n"
             continue
         response_text += chunk.content
-        yield response_text
+        if len(response_text.strip()) > 0:
+            yield response_text
 
-    if references_text:
+    if references_text and len(response_text.strip()) > 0:
         yield response_text + "\n\n---\n\n" + references_text
 
 
@@ -57,9 +60,10 @@ ui = gr.ChatInterface(
         ["python的虚拟环境怎么使用"],
         ["Docker运行报错怎么解决"],
     ],
+    show_progress="full",
+    textbox=Textbox(lines=3, placeholder="请输入您的问题...", submit_btn=True, stop_btn=True, show_label=True),
 )
 
 if __name__ == "__main__":
     logger.info("启动Gradio Web应用")
     ui.launch(server_port=7860)
-
