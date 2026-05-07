@@ -2,6 +2,12 @@
 
 基于 LangChain 和 Ollama 的本地知识库问答系统 (RAG)。
 
+## 预览
+
+![主界面](https://github.com/moqi-y/LangChain-chat/blob/master/images/img.png)
+
+![聊天示例](https://github.com/moqi-y/LangChain-chat/blob/master/images/img_1.png)
+
 ## 特性
 
 - **RAG 检索增强生成** - 通过向量相似度搜索从本地文档中检索相关内容，生成准确答案
