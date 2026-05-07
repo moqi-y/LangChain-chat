@@ -4,19 +4,21 @@ Gradio Web应用 - 聊天界面
 
 import gradio as gr
 from agent import chat_with_rag
+from utils.logger import logger
 
 
 def chat(message: str, history: list) -> tuple[str, list]:
     if not message.strip():
         return "", history
-    
+
     result = chat_with_rag(message)
+    logger.info(f"result: {result}")
     answer = result["answer"]
-    
-    references = result.get("references", [])
-    if references:
-        answer += "\n\n---\n**参考来源：**\n" + "\n".join([f"• {r['source']}" for r in references])
-    
+
+    # references = result.get("references", [])
+    # if references:
+    #     answer += "\n\n---\n**参考来源：**\n" + "\n".join([f"• {r['source']}" for r in references])
+
     history.append((message, answer))
     return "", history
 

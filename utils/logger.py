@@ -40,4 +40,5 @@ logger = init_logger()
 __all__ = ["logger", "init_logger"]
 
 if __name__ == '__main__':
-    logger.info("测试log")
+    #     use example
+    logger.info("hello world")
