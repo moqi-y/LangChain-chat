@@ -1,3 +1,5 @@
+import json
+
 from langchain_ollama import ChatOllama
 
 from config.config_handler import config
@@ -29,13 +31,10 @@ def chat_rebot(input: str):
         ("system", f"{PROMPT}，参考资料：{context},根据参考资料回答用户的问题,"),
         ("user", input)
     ]
-
-    # 先收集所有chunks
-    full_response = []
     for chunk in llm.stream(messages):
-        full_response.append(chunk.content)
-        yield chunk.content
+        content = chunk.content
+        # 返回 JSON 格式
+        yield json.dumps({"type": "content", "data": content}, ensure_ascii=False)
 
-    # 流式输出完成后，发送resource信息
-    # 使用特殊标记分隔资源和回答内容
-    yield f"\n\n[参考资料]\n{resource_text}"
+    # 输出参考资料
+    yield json.dumps({"type": "reference", "data": resource_text}, ensure_ascii=False)
