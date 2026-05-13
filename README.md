@@ -100,7 +100,7 @@ dirs:
 ### 2. 启动应用
 
 ```bash
-python app.py
+python app_bk.py
 ```
 
 ### 3. 访问界面

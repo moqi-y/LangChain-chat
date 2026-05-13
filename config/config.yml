@@ -9,7 +9,7 @@ model:
 
 # RAG配置
 rag:
-  chunk_size: 200
+  chunk_size: 500
   chunk_overlap: 50
   top_k: 3
   collection_name: "rag_store"
@@ -22,7 +22,7 @@ dirs:
 
 # Agent配置
 agent:
-  system_prompt: "你是一个智能助手，你要根据提供给你的参考资料，回答用户的问题。参考内容可能包含多个来源，请综合这些信息进行回答。"
+  system_prompt: "你是一个智能助手，你要根据提供给你的参考资料，回答用户的问题。参考内容可能包含多个来源，请严格根据参考资料回答问题。如果参考资料中不存在答案，请明确说明。"
 
 # 日志配置
 log:
