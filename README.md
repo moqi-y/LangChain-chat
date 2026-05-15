@@ -24,7 +24,7 @@
 | LLM 框架 | LangChain, LangChain Community, LangChain Ollama |
 | 本地模型服务 | [Ollama](https://ollama.ai/) |
 | 向量数据库 | ChromaDB |
-| Web 界面 | Gradio |
+| Web 框架 | FastAPI |
 | 日志 | Loguru |
 
 ## 环境准备
@@ -100,19 +100,18 @@ dirs:
 ### 2. 启动应用
 
 ```bash
-python app_bk.py
+python app.py
 ```
 
-### 3. 访问界面
+### 3. 访问 API
 
-打开浏览器访问 http://localhost:7860
+服务启动后可通过 `http://localhost:8000` 访问，聊天接口为 `POST /chat`
 
 ## 项目结构
 
 ```
 LangChain-chat/
-├── app.py              # 应用入口 (Gradio UI)
-├── agent/              # Agent 模块 (RAG 对话逻辑)
+├── app.py              # 应用入口 (FastAPI)
 ├── config/             # 配置模块
 │   └── config.yml      # 配置文件
 ├── model/              # 模型模块 (LLM 调用)
@@ -121,8 +120,9 @@ LangChain-chat/
 │   ├── logger.py       # 日志工具
 │   ├── text_splitter_txt.py   # TXT 分块
 │   └── text_splitter_pdf.py   # PDF 分块
+│   └── document_loader.py     # 文档加载器
 ├── data/               # 知识库文档
-│   └── chroma_db/      # 向量数据库存储
+├── chroma_db/           # 向量数据库存储
 └── logs/               # 日志文件
 ```
 
